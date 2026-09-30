@@ -92,12 +92,19 @@ function buildPath() {
         [1180, 800],  // lower left
         [600, 520]    // upper left
     ];
+    const minX = Math.min(...basePoints.map(([x]) => x));
+    const maxX = Math.max(...basePoints.map(([x]) => x));
+    const minY = Math.min(...basePoints.map(([, y]) => y));
+    const maxY = Math.max(...basePoints.map(([, y]) => y));
+    const shapeWidth = maxX - minX + INITIAL_RANDOM * 2;
+    const shapeHeight = maxY - minY + INITIAL_RANDOM * 2;
+    const scale = Math.min(1, width * 0.9 / shapeWidth, height * 0.82 / shapeHeight);
     if (!initialShapeOffsets) {
         initialShapeOffsets = basePoints.map(() => createVector(random(-INITIAL_RANDOM, INITIAL_RANDOM), random(-INITIAL_RANDOM, INITIAL_RANDOM)));
     }
     path = basePoints.map(([x, y], i) => new Vertex(createVector(
-        x + initialShapeOffsets[i].x,
-        y + initialShapeOffsets[i].y
+        (x + initialShapeOffsets[i].x - (minX + maxX) / 2) * scale + width / 2,
+        (y + initialShapeOffsets[i].y - (minY + maxY) / 2) * scale + height / 2
     )));
 
     video.elt.onloadedmetadata = () => {
