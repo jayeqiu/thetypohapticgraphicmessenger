@@ -59,16 +59,16 @@ function setup() {
     }
     buildPath();
     document.getElementById('download-svg').addEventListener('click', downloadShapeAsSvg);
-    document.getElementById('save-shape').addEventListener('click', saveSharedShape);
-    document.getElementById('load-shape').addEventListener('click', loadSharedShape);
-    document.getElementById('refresh-shapes').addEventListener('click', () => {
-        refreshSharedShapes().catch(showSharedShapeError);
-    });
-    if (isSupabaseConfigured()) {
-        refreshSharedShapes().catch(showSharedShapeError);
-    } else {
-        document.getElementById('save-status').textContent = 'Add your Supabase URL and anon key in script.js to enable shared saves.';
-    }
+    // document.getElementById('save-shape').addEventListener('click', saveSharedShape);
+    // document.getElementById('load-shape').addEventListener('click', loadSharedShape);
+    // document.getElementById('refresh-shapes').addEventListener('click', () => {
+        // refreshSharedShapes().catch(showSharedShapeError);
+    // });
+    // if (isSupabaseConfigured()) {
+        // refreshSharedShapes().catch(showSharedShapeError);
+    // } else {
+        // document.getElementById('save-status').textContent = 'Add your Supabase URL and anon key in script.js to enable shared saves.';
+    // }
 }
 
 function windowResized() {
@@ -175,7 +175,7 @@ function downloadShapeAsSvg() {
     link.click();
     link.remove();
     window.setTimeout(() => URL.revokeObjectURL(url), 1000);
-    status.textContent = `Downloaded ${filename}.`;
+    // status.textContent = `Downloaded ${filename}.`;
 }
 
 function isSupabaseConfigured() {
