@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Hand-Square Interaction</title>
+<style>
+  :root{
+    --bg:#0b0d10; --fg:#eef1f4; --accent:#5ad1e6; --muted:#8a94a3;
+    box-sizing:border-box;
+    padding-top: env(safe-area-inset-top,0px);
+    padding-bottom: env(safe-area-inset-bottom,0px);
+  }
+  @media (prefers-color-scheme: light){
+    :root:not([data-theme="dark"]){ --bg:#f4f6f8; --fg:#12161a; --muted:#5b6673; }
+  }
+  :root[data-theme="dark"]{ --bg:#0b0d10; --fg:#eef1f4; --muted:#8a94a3; }
+  html,body{height:100%;margin:0;background:var(--bg);color:var(--fg);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;overflow:hidden;}
+  #hint{
+    position:fixed; left:50%; top:calc(env(safe-area-inset-top,0px) + 14px);
+    transform:translateX(-50%); z-index:5; text-align:center;
+    font-size:13px; color:var(--muted); background:rgba(0,0,0,0.25);
+    padding:8px 14px; border-radius:20px; backdrop-filter:blur(6px);
+    max-width:90vw;
+  }
+  #hint b{color:var(--accent);}
+  canvas{display:block;}
+  #page-actions{
+    position:fixed; right:16px; bottom:calc(env(safe-area-inset-bottom,0px) + 16px); z-index:6;
+    display:flex; gap:8px;
+  }
+  .page-action{
+    border:1px solid rgba(255,255,255,0.48); border-radius:6px;
+    padding:10px 14px; background:rgba(12,16,18,0.76); color:#eef1f4;
+    font:600 13px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    cursor:pointer; backdrop-filter:blur(8px);
+  }
+  .page-action:hover{background:rgba(38,42,44,0.9);}
+  .page-action:focus-visible{outline:2px solid #eef1f4; outline-offset:3px;}
+  #save-status{
+    position:fixed; right:16px; bottom:calc(env(safe-area-inset-bottom,0px) + 62px); z-index:6;
+    color:var(--fg); background:rgba(12,16,18,0.76); padding:6px 9px; border-radius:4px;
+    font-size:12px; backdrop-filter:blur(8px);
+  }
+</style>
+</head>
+<body>
+<div id="hint">Allow camera access. Move a hand <b>slowly</b> toward the square to dent it, hold still <b>inside</b> it to open holes. Fast motion is ignored.</div>
+<output id="save-status" aria-live="polite"></output>
+<nav id="page-actions" aria-label="Shape actions">
+  <button class="page-action" id="download-svg" type="button">Download SVG</button>
+  <a class="page-action" href="display.html">Display</a>
+</nav>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.4/p5.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/ml5@1/dist/ml5.min.js"></script>
+<script src="Vertex.js"></script>
+<script src="script.js"></script>
+
+</body>
+</html>

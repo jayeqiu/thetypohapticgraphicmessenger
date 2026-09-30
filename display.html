@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Shape Display</title>
+<style>
+  :root{color-scheme:dark;--fg:#eef1f4;--muted:#a8b0b7;box-sizing:border-box;}
+  *{box-sizing:inherit;}
+  html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#0b0d10;color:var(--fg);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;}
+  canvas{position:fixed!important;inset:0;z-index:0;display:block;}
+  #gallery{
+    position:fixed;inset:20px 20px calc(env(safe-area-inset-bottom,0px) + 76px);z-index:1;
+    display:grid;align-items:center;justify-items:center;pointer-events:none;
+  }
+  .shape-cell{width:100%;height:100%;display:flex;align-items:center;justify-content:center;min-width:0;min-height:0;}
+  .shape-cell img{display:block;width:300%;max-width:none;max-height:300%;height:auto;object-fit:contain;
+    filter:drop-shadow(0 8px 18px rgba(0,0,0,0.24));will-change:transform;}
+  #message{
+    position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:2;
+    max-width:min(520px,90vw);text-align:center;color:var(--fg);font-size:14px;line-height:1.5;
+    padding:10px 14px;background:rgba(12,16,18,0.72);border:1px solid rgba(255,255,255,0.18);
+    border-radius:6px;backdrop-filter:blur(8px);
+  }
+  #controls{
+    position:fixed;left:16px;right:16px;bottom:calc(env(safe-area-inset-bottom,0px) + 16px);z-index:3;
+    display:flex;align-items:center;justify-content:space-between;gap:12px;pointer-events:none;
+  }
+  #controls>*{pointer-events:auto;}
+  #page-actions{display:flex;gap:8px;margin-left:auto;}
+  .page-action{
+    display:inline-flex;align-items:center;justify-content:center;text-decoration:none;
+    border:1px solid rgba(255,255,255,0.48);border-radius:6px;padding:10px 14px;
+    background:rgba(12,16,18,0.76);color:#eef1f4;
+    font:600 13px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    cursor:pointer;backdrop-filter:blur(8px);
+  }
+  .page-action:hover{background:rgba(38,42,44,0.9);}
+  .page-action:focus-visible{outline:2px solid #eef1f4;outline-offset:3px;}
+  @media(prefers-reduced-motion:reduce){.shape-cell img{will-change:auto;}}
+</style>
+</head>
+<body>
+<div id="gallery" aria-live="polite"></div>
+<output id="message" aria-live="polite">Loading SVG files from svg/...</output>
+<nav id="controls" aria-label="Display controls">
+  <div id="page-actions">
+    <a class="page-action" href="index.html">Return</a>
+  </div>
+</nav>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.4/p5.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/ml5@1/dist/ml5.min.js"></script>
+<script src="display.js"></script>
+</body>
+</html>
